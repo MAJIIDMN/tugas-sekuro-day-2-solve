@@ -1,2 +1,2 @@
-![Semangat](https://tenor.com/view/konosuba-gif-16231776808166715159)
+<div class="tenor-gif-embed" data-postid="16231776808166715159" data-share-method="host" data-aspect-ratio="1.77419" data-width="100%"><a href="https://tenor.com/view/konosuba-gif-16231776808166715159">Konosuba GIF</a>from <a href="https://tenor.com/search/konosuba-gifs">Konosuba GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 ## checkpoint
