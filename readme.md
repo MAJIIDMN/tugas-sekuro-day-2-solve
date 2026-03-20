@@ -1,2 +1,2 @@
-![Semangat](https://tenor.com/gtvxZtQQoan.gif)
+![Semangat](semangat.gif)
 ## checkpoint
