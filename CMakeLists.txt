@@ -14,15 +14,28 @@ find_package(std_msgs REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-install(PROGRAMS
-  ${PROJECT_NAME}/base_robot_pub.cpp
-  ${PROJECT_NAME}/base_robot_subs.cpp
+add_executable(move_destroyer src/destroyer_move.cpp)
+ament_target_dependencies(move_destroyer rclcpp geometry_msgs std_msgs)
+
+add_executable(check_move_destroyer src/destroyer_check.cpp)
+ament_target_dependencies(check_move_destroyer rclcpp geometry_msgs std_msgs)
+
+add_executable(auto_mode_destroyer src/destroyer_auto.cpp)
+ament_target_dependencies(auto_mode_destroyer rclcpp geometry_msgs std_msgs)
+
+add_executable(drive_mode_destroyer src/destroyer_drive.cpp)
+ament_target_dependencies(drive_mode_destroyer rclcpp geometry_msgs std_msgs)
+
+install(TARGETS
+  move_destroyer
+  check_move_destroyer
+  auto_mode_destroyer
+  drive_mode_destroyer
   DESTINATION lib/${PROJECT_NAME}
 )
 
 install(DIRECTORY
   launch
-  config
   DESTINATION share/${PROJECT_NAME}/
 )
 
