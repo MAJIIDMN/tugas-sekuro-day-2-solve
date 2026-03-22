@@ -1,2 +1,0 @@
-![Semangat](semangat.gif)
-## checkpoint
