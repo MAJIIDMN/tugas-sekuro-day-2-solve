@@ -57,8 +57,7 @@ tugas-sekuro-day-2/
 ├── package.xml
 ├── readme.md
 ├── LICENSE
-├── semangat.gif
-├── graph.png
+├── resources/
 ├── include/
 ├── launch/ #launch file
 │   └── destroyer.launch.py
