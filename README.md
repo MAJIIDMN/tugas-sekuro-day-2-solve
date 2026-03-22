@@ -1,5 +1,5 @@
 <p align="center" style="width=100%;">
-  <img src="resources/semangat.gif" width="100%" alt="Mahiru-chan >///<">
+  <img src="resources/semangat.gif" width="100%" alt="semangat>
 </p>
 
 ## Tugas Sekuro Day 2
