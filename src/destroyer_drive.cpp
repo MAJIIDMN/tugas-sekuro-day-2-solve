@@ -26,11 +26,9 @@ public:
   DestroyerDrive() : Node("drive_mode_destroyer")
   {
     publisher_drive_ = this->create_publisher<geometry_msgs::msg::Twist>("drive_destroyer", 10);
-    
-    RCLCPP_INFO(this->get_logger(), "Mode Kendali Manual Aktif (Tanpa Multi-threading)!");
     RCLCPP_INFO(this->get_logger(), "Panah: Maju/Mundur/Kiri/Kanan (5 m/s)");
     RCLCPP_INFO(this->get_logger(), "R/L  : Rotasi Kanan/Kiri (1 rad/s)");
-    RCLCPP_INFO(this->get_logger(), "SPASI: Rem/Berhenti");
+    RCLCPP_INFO(this->get_logger(), "B: Rem/Berhenti");
   }
 
   void run_keyboard_loop() {
@@ -57,17 +55,24 @@ public:
               }
           } 
           else {
+                //Rotasi kanan
               if (c == 'r' || c == 'R') {
                   msg.angular.z = -1.0; 
                   valid_key = true;
               } 
+                //Rotasi kiri
               else if (c == 'l' || c == 'L') {
                   msg.angular.z = 1.0;  
                   valid_key = true;
               } 
-              else if (c == ' ') { 
+                //Rem/Berhenti
+              else if (c == 'b' || c == 'B') { 
+                  msg.linear.x = 0.0;
+                  msg.linear.y = 0.0;
+                  msg.angular.z = 0.0;
                   valid_key = true;
               }
+                //Keluar dari loop jika tombol Ctrl+C ditekan
               else if (c == '\x03') {
                   break;
               }
@@ -88,7 +93,7 @@ int main(int argc, char * argv[])
   rclcpp::init(argc, argv);
   
   auto node = std::make_shared<DestroyerDrive>();
-  
+  //ganti void loop dari ros2 dengan loop untuk membaca input keyboard
   node->run_keyboard_loop();
   
   rclcpp::shutdown();

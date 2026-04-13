@@ -1,6 +1,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <std_msgs/msg/string.hpp>
+#include <cmath>
 #include <string>
 
 class DestroyerMove : public rclcpp::Node
@@ -18,6 +19,39 @@ public:
   }
 
 private:
+  static std::string wheel_rotation_direction(double value)
+  {
+    constexpr double kEpsilon = 1e-6;
+    if (value > kEpsilon) {
+      return "Maju";
+    }
+    if (value < -kEpsilon) {
+      return "Mundur";
+    }
+    return "Diam";
+  }
+
+  void log_omni_wheel_orientation(const geometry_msgs::msg::Twist::SharedPtr msg) const
+  {
+    const double vx = msg->linear.x;
+    const double vy = msg->linear.y;
+    const double wz = msg->angular.z;
+
+    // Mapping sederhana omni 4 roda (X-drive): fr, br, fl, bl.
+    const double fr = vx - vy - wz;
+    const double br = vx + vy - wz;
+    const double fl = vx + vy + wz;
+    const double bl = vx - vy + wz;
+
+    RCLCPP_INFO(
+      this->get_logger(),
+      "Orientasi Roda Omni | fr: %s, br: %s, fl: %s, bl: %s",
+      wheel_rotation_direction(fr).c_str(),
+      wheel_rotation_direction(br).c_str(),
+      wheel_rotation_direction(fl).c_str(),
+      wheel_rotation_direction(bl).c_str());
+  }
+
   void topic_callback_power(const geometry_msgs::msg::Twist::SharedPtr msg) const
   {
     std::string arah_gerak = "";
@@ -36,6 +70,7 @@ private:
     }
 
     RCLCPP_INFO(this->get_logger(), "Orientasi Gerak : %s", arah_gerak.c_str());
+    log_omni_wheel_orientation(msg);
   }
   void topic_callback_type(const std_msgs::msg::String::SharedPtr msg) const
   {
